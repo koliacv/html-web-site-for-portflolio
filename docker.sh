@@ -11,3 +11,6 @@ cd website/
 docker build -t website .
 echo "docker builded"
 docker run -d -p 80:80 website
+echo "Docker run and work then"
+MYIP=$(curl -s ipinfo.io/ip)
+echo "go to ${MYIP}:80"
