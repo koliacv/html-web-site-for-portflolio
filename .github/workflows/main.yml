@@ -16,7 +16,6 @@ jobs:
     - name: Run dockerfile
       uses: actions/checkout@v1
 
-    steps:
     - name: Run webpage
       run : | 
         chmod +x docker.sh
