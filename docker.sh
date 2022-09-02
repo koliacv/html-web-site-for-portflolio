@@ -10,6 +10,8 @@ docker build -t website .
 echo "docker builded"
 docker run -d -p 80:80 website
 echo "Docker run and work then"
-MYIP=$(hostname -I)
-echo "go to ${MYIP}:80"
-curl http://${MYIP}:80
+MYIP1=$(hostname -I | awk '{print $1}')
+MYIP2=$(hostname -I | awk '{print $2}')
+echo "go to ${MYIP1}:80 or ${MYIP2}:80"
+curl http://${MYIP1}:80
+curl http://${MYIP2}:80
