@@ -14,8 +14,7 @@ jobs:
   
     steps:
     - name: Run dockerfile
-    - uses: actions/checkout@v1
+      uses: actions/checkout@v1
 
-    steps:
     - name: ls -lah 
-    - run : ls -alh
+      run : ls -alh
