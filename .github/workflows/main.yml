@@ -1,7 +1,8 @@
 # This is a basic workflow to help you get started with Actions
 
 name: Docker-test-webpage
-
+env:
+   DOCKER_ID: docker ps -a | awk '{print $1}' | grep -m2  "" | grep -v "CONTAINER"
 # Controls when the workflow will run
 on:
   push:
@@ -11,8 +12,7 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
-    env:
-     DOCKER_ID: docker ps -a | awk '{print $1}' | grep -m2  "" | grep -v "CONTAINER"
+   
     steps:
     - name: Run dockerfile
       uses: actions/checkout@v1
