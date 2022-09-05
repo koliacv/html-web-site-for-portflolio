@@ -2,7 +2,7 @@
 
 name: Docker-test-webpage
 env:
- DOCKER_ID: docker ps -a | awk '{print $1}' | grep -m2  "" | grep -v "CONTAINER"
+ DOCKER_ID: docker ps -a | awk '{print $1}' | grep -v "CONTAINER" | grep -m1 ""
 # Controls when the workflow will run
 on:
   push:
