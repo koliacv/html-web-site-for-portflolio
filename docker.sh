@@ -13,3 +13,4 @@ echo "Docker run and work then"
 MYIP1=$(hostname -I | awk '{print $1}')
 MYIP2=$(hostname -I | awk '{print $2}')
 echo "go to ${MYIP1}:80 or ${MYIP2}:80"
+apt-get install grep -y
