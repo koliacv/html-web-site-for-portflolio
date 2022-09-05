@@ -21,7 +21,8 @@ jobs:
       run : | 
         chmod +x docker.sh
         sudo ./docker.sh
-        $DOCKER_ID
+    - name: dolby
+      run : docker ps -a|awk '{print $1}'|grep -v "CONTAINER"|grep -m1 ""
         
     - name: Test available files in docker continer
       run : docker exec -it $() ls -lah /usr/share/nginx/html
