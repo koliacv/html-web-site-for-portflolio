@@ -12,7 +12,7 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     env:
-     DOCKER_ID: ${{ docker ps -a | awk '{print $1}' | grep -m2  "" | grep -v "CONTAINER" }}
+     DOCKER_ID: docker ps -a | awk '{print $1}' | grep -m2  "" | grep -v "CONTAINER"
     steps:
     - name: Run dockerfile
       uses: actions/checkout@v1
@@ -23,4 +23,4 @@ jobs:
         ./docker.sh
         
     - name: Test available files in docker continer
-      run : docker exec -it ${{ DOCKER_ID }} ls -lah /usr/share/nginx/html
+      run : docker exec -it $DOCKER_ID ls -lah /usr/share/nginx/html
