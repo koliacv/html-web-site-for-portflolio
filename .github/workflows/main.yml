@@ -20,7 +20,7 @@ jobs:
     - name: Run webpage
       run : | 
         chmod +x docker.sh
-        ./docker.sh
+        sudo ./docker.sh
         $DOCKER_ID
         
     - name: Test available files in docker continer
