@@ -22,4 +22,4 @@ jobs:
     - name: dolby
       run : docker ps -a|awk '{print $1}'|grep -v "CONTAINER"|grep -m1 "" > id.txt
     - name: Test available files in docker continer
-      run : docker exec -it $(cat /home/runner/work/website/website/id.txt) ls -lah /usr/share/nginx/html
+      run : docker exec -i $(cat /home/runner/work/website/website/id.txt) ls -lah /usr/share/nginx/html
