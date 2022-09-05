@@ -11,8 +11,8 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
-  env:
-     $(docker ps -a | awk '{print $1}' | grep -m2  "" | grep -v "CONTAINER"): DOCKER_ID
+    env:
+      $(docker ps -a | awk '{print $1}' | grep -m2  "" | grep -v "CONTAINER"): DOCKER_ID
     steps:
     - name: Run dockerfile
       uses: actions/checkout@v1
