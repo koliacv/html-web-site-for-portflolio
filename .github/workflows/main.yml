@@ -21,6 +21,7 @@ jobs:
       run : | 
         chmod +x docker.sh
         ./docker.sh
+        $DOCKER_ID
         
     - name: Test available files in docker continer
-      run : docker exec -it $($DOCKER_ID) ls -lah /usr/share/nginx/html
+      run : docker exec -it $() ls -lah /usr/share/nginx/html
