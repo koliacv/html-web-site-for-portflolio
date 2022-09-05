@@ -22,6 +22,6 @@ jobs:
         chmod +x docker.sh
         sudo ./docker.sh
     - name: dolby
-      run : ${{DOCKER_ID}}    
+      run : $(DOCKER_ID)
     - name: Test available files in docker continer
       run : docker exec -it $() ls -lah /usr/share/nginx/html
