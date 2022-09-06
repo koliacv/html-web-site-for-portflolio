@@ -1,0 +1,51 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI-CD-to-AWS
+env:
+  EB_PACKAGE_S3_BUCKET_NAME : "kolia-website-program"
+  EB_APLICATTION_NAME       : "MyWebsite"
+  EB_ENVIROMENT_NAME        : "MyWebsite-env"
+  DEPLOY_PACKAGE_NAME       : "website_${{ github.sha }}.zip"
+  AWS_REGION_NAME           : "us-west-2"
+# Controls when the workflow will run
+on:
+  push:
+    branches: 
+      - master
+    
+jobs:
+  my_ci_part:
+    runs-on: ubuntu-latest
+   
+    steps:
+    - name: Git clone our repo
+      uses: actions/checkout@v1
+
+    - name: Run webpage
+      run : | 
+        chmod +x docker.sh
+        sudo ./docker.sh
+    
+    
+    - name: dolby
+      run : docker ps -a|awk '{print $1}'|grep -v "CONTAINER"|grep -m1 "" > id.txt
+    
+    
+    - name: Test available files in docker continer
+      run : docker exec -i $(cat /home/runner/work/website/website/id.txt) ls -lah /usr/share/nginx/html
+    
+    
+    - name: Create ZIP deployment package 
+      run : zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *-git*
+
+
+    - name: Configure my AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id      : ${{ secrets.MY_AWS_ACCESS_KEY }}
+        aws-secret-access-key  : ${{ secrets.MY_AWS_SECRET_KEY }}
+        aws-region             : ${{ env.AWS_REGION_NAME }}
+    
+    
+    - name: Copy Deployment package to S3 bucket
+      run : aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }}  s3://${{ env.EB_PACKAGE_S3_BUCKET_NAME }}/
