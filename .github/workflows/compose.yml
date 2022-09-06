@@ -9,7 +9,7 @@ on:
 env:
   DOCKER_USER: ${{secrets.DOCKERHUB_USERNAME}}
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-  REPO_NAME: "kolia2526/nginx"
+  REPO_NAMES: "kolia2526/nginx"
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -28,10 +28,10 @@ jobs:
       run: echo "::set-output name=date::$(date +'%Y-%m-%d--%M-%S')"
     
     - name: Build the Docker image # push The image to the docker hub
-      run: docker build . --file Dockerfile --tag $DOCKER_USER/$REPO_NAME:${{ steps.date.outputs.date }}
+      run: docker build . --file Dockerfile --tag $REPO_NAMES:${{ steps.date.outputs.date }}
    
     - name: Docker Push
-      run: docker push $REPO_NAME:${{ steps.date.outputs.date }}
+      run: docker push $REPO_NAMES:${{ steps.date.outputs.date }}
     
     - name: docker-compose start 
       run : docker-compose up -d 
