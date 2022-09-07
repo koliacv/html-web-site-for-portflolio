@@ -1,33 +1,33 @@
 pipeline {
     agent any
     environment{
-        DOCKERHUB_CREDENTIALS=credentials('Docker-hub-access')
-        REPO_NAME="kolia2526/nginx"
+        DOCKERHUB_CREDENTIALS = credentials('Docker-hub-access')
+        REPO_NAME = 'kolia2526/nginx'
     }
     stages {
         stage('Git pull from repo') {
             steps {
-                git clone https://github.com/koliacv/website.git -b master
+                 sh ("git clone https://github.com/koliacv/website.git -b master")
             }
         }
         stage('Build and Test dockerfile') {
             steps {
                 script {
-                  sh ''' 
+                  sh """ 
                     cd .devops/
                     chmod +x test.sh
                     sudo ./test.sh
-                '''
+                """
                 }
             }
             steps {
                 script {
-                  sh '''
+                  sh """
                     cd ..
                     docker ps -a|awk '{print $1}'|grep -v "CONTAINER"|grep -m1 "" > id.txt
                     docker exec -i $(cat /home/runner/work/website/website/id.txt) ls -lah /usr/share/nginx/html
 
-                '''
+                """
                 }
             }
 
@@ -35,33 +35,33 @@ pipeline {
         stage('Login') {
             steps {
                 script {
-                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                    sh ('echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin')
                 }
             }
         }
         stage('Push') {
             steps {
                 script {
-                    sh '''docker push $REPO_NAME:$(echo "$(date +'%d.%m.%Y-%H:%M')")'''
+                    sh ('docker push $REPO_NAME:$(echo "$(date +'%d.%m.%Y-%H:%M')")')
                 }
             }
         }
         post {
 		    always {
-			    sh 'docker logout'
+			    sh ("docker logout")
 		    }
 	    }
     agent { label 'Deploy-website' } {
         stage('Push and start to server') {
             steps {
                 script {
-                    sh '''
+                    sh """
                         git clone https://github.com/koliacv/website.git -b master
                         cd .devops/
                         chmod +x push.sh
                         sudo ./push.sh
                 
-                    '''
+                    """
                 }
             }
         }
