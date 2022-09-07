@@ -1,0 +1,66 @@
+pipeline {
+    agent { docker { image 'ubuntu:latest' }}
+    environment{
+        DOCKERHUB_CREDENTIALS=credentials('Docker-hub-access')
+        REPO_NAME="kolia2526/nginx"
+    }
+
+    stages('Git pull from repo') {
+        steps{
+            sh "git clone https://github.com/koliacv/website.git -b master"
+        }
+    }
+    stages('Build and Test dockerfile') {
+        steps{
+            script {
+                sh ***  
+                    cd .devops/
+                    chmod +x test.sh
+                    sudo ./test.sh
+                ***
+            }
+        }
+        steps{
+            script {
+                sh *** 
+                cd ..
+                docker ps -a|awk '{print $1}'|grep -v "CONTAINER"|grep -m1 "" > id.txt
+                docker exec -i $(cat /home/runner/work/website/website/id.txt) ls -lah /usr/share/nginx/html
+
+                ***
+
+            }
+
+        }
+
+    }
+    stages('Way to docker hub ') {
+        stage('Login') {
+            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+            
+        }
+        stage('Push') {
+            sh 'docker push $REPO_NAME:$(date +'%Y-%m-%d--%M-%S')'
+
+        }
+    }
+    post {
+		always {
+			sh 'docker logout'
+		}
+	}
+    node('Deploy-website') {
+        stage('Push and start to server'){
+            script {
+                sh ***
+                    git clone https://github.com/koliacv/website.git -b master
+                    cd .devops/
+                    chmod +x push.sh
+                    sudo ./push.sh
+                
+                    ***
+
+            }
+        }
+    }
+}
