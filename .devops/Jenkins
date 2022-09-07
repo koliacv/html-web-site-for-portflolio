@@ -13,7 +13,7 @@ pipeline {
     stages('Build and Test dockerfile') {
         steps{
             script {
-                sh """  
+                sh """ 
                     cd .devops/
                     chmod +x test.sh
                     sudo ./test.sh
@@ -22,12 +22,12 @@ pipeline {
         }
         steps{
             script {
-                sh *** 
+                sh """
                 cd ..
                 docker ps -a|awk '{print $1}'|grep -v "CONTAINER"|grep -m1 "" > id.txt
                 docker exec -i $(cat /home/runner/work/website/website/id.txt) ls -lah /usr/share/nginx/html
 
-                ***
+                """
 
             }
 
@@ -52,13 +52,13 @@ pipeline {
     node('Deploy-website') {
         stage('Push and start to server'){
             script {
-                sh ***
+                sh """
                     git clone https://github.com/koliacv/website.git -b master
                     cd .devops/
                     chmod +x push.sh
                     sudo ./push.sh
                 
-                    ***
+                    """
 
             }
         }
