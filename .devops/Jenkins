@@ -40,7 +40,7 @@ pipeline {
             
         }
         stage('Push') {
-            sh 'docker push $REPO_NAME:$(echo "$(date +'%Y-%m-%d--%M-%S')")'
+            sh 'docker push $REPO_NAME:$(echo "$(date +'%d-%m-%Y-%H:%M')")'
 
         }
     }
