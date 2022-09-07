@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Git pull from repo') {
             steps {
-                 sh "git clone https://github.com/koliacv/website.git -b master"
+                git clone https://github.com/koliacv/website.git -b master
             }
         }
         stage('Build and Test dockerfile') {
