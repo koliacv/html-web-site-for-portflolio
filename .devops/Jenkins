@@ -23,9 +23,9 @@ pipeline {
         steps{
             script {
                 sh """
-                cd ..
-                docker ps -a|awk '{print $1}'|grep -v "CONTAINER"|grep -m1 "" > id.txt
-                docker exec -i $(cat /home/runner/work/website/website/id.txt) ls -lah /usr/share/nginx/html
+                    cd ..
+                    docker ps -a|awk '{print $1}'|grep -v "CONTAINER"|grep -m1 "" > id.txt
+                    docker exec -i $(cat /home/runner/work/website/website/id.txt) ls -lah /usr/share/nginx/html
 
                 """
 
@@ -58,7 +58,7 @@ pipeline {
                     chmod +x push.sh
                     sudo ./push.sh
                 
-                    """
+                """
 
             }
         }
