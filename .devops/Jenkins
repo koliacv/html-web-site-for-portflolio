@@ -5,12 +5,12 @@ pipeline {
         REPO_NAME="kolia2526/nginx"
     }
 
-    stages('Git pull from repo') {
+    stage('Git pull from repo') {
         steps{
             sh "git clone https://github.com/koliacv/website.git -b master"
         }
     }
-    stages('Build and Test dockerfile') {
+    stage('Build and Test dockerfile') {
         steps{
             script {
                 sh ''' 
@@ -34,16 +34,16 @@ pipeline {
         }
 
     }
-    stages('Way to docker hub ') {
+    stage('Way to docker hub ') {
         stage('Login') {
             script {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
         }
-        stage('Push') {
-            script {
-                sh '''docker push $REPO_NAME:$(echo "$(date +'%d.%m.%Y-%H:%M')")'''
-            }
+    stage('Push') {
+        script {
+             sh '''docker push $REPO_NAME:$(echo "$(date +'%d.%m.%Y-%H:%M')")'''
+         }
         }
     }
     post {
