@@ -6,12 +6,12 @@ pipeline {
     }
     stages {
         stage('Git pull from repo') {
-            steps{
+            steps {
                  sh "git clone https://github.com/koliacv/website.git -b master"
              }
         }
-        stage('Build and Test dockerfile') {
-            steps{
+        stage ('Build and Test dockerfile') {
+            steps {
                 script {
                   sh ''' 
                     cd .devops/
@@ -20,7 +20,7 @@ pipeline {
                 '''
                 }
             }
-            steps{
+            steps {
                 script {
                   sh '''
                     cd ..
@@ -51,19 +51,19 @@ pipeline {
 			    sh 'docker logout'
 		    }
 	    }
-        node('Deploy-website') {
-            stage('Push and start to server'){
-                script {
-                    sh '''
-                        git clone https://github.com/koliacv/website.git -b master
-                        cd .devops/
-                        chmod +x push.sh
-                        sudo ./push.sh
+    node('Deploy-website') {
+        stage('Push and start to server'){
+            script {
+                sh '''
+                    git clone https://github.com/koliacv/website.git -b master
+                    cd .devops/
+                    chmod +x push.sh
+                    sudo ./push.sh
                 
-                    '''
-                    }
+                '''
             }
-        }    
+        }
+    }    
 
     }
 }
