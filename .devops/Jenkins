@@ -52,18 +52,19 @@ pipeline {
 		    }
 	    }
     agent { label 'Deploy-website' } {
-        stage('Push and start to server'){
-            script {
-                sh '''
-                    git clone https://github.com/koliacv/website.git -b master
-                    cd .devops/
-                    chmod +x push.sh
-                    sudo ./push.sh
+        stage('Push and start to server') {
+            steps {
+                script {
+                    sh '''
+                        git clone https://github.com/koliacv/website.git -b master
+                        cd .devops/
+                        chmod +x push.sh
+                        sudo ./push.sh
                 
-                '''
+                    '''
+                }
             }
         }
-    }    
 
     }
 }
