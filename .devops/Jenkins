@@ -36,8 +36,8 @@ pipeline {
             steps { 
                 git branch: 'master',
                     url: 'https://github.com/koliacv/website.git'
-                sh "ls -lah"
                 sh "cd .devops/"
+                sh "ls -lah | pwd"
                 sh "docker-compose build"
                 sh "docker-compose up -d"    
             }
