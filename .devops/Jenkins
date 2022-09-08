@@ -9,7 +9,12 @@ pipeline {
     stages {
         stage('Git pull from repo') {
             steps {
-                sh 'git clone https://github.com/koliacv/website.git -b master'
+                sh '''
+                sudo apt-get update -y
+                sudo apt-get install git-all -y
+                git clone https://github.com/koliacv/website.git -b master
+                
+                '''
             }
         }
         stage('Build dockerfile') {
