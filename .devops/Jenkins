@@ -35,11 +35,12 @@ pipeline {
             steps {
                 script {
                     sh '''
+                      docker system prune -a --volume -f
                       cd .. | cd ..
                       rm -rf website
                       git clone https://github.com/koliacv/website.git -b master
                       cd website/.devops/
-                      docker-compose up -d
+                      docker compose up -d
                     '''
                 }
             }
