@@ -8,7 +8,7 @@
 #ENV
 REPO_NAME=kolia2526/website
 pwd=$(pwd)
-date=$(echo "$(date +'%d-%m-%Y--%H-%M')")
+date=latest
 ###
 echo "---------------------------------Start docker build------------------------------"
 docker build . --file Dockerfile -t $REPO_NAME:$date
