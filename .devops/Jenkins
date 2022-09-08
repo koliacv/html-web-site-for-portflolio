@@ -10,8 +10,8 @@ pipeline {
         stage('Git pull from repo') {
             steps {
                 sh '''
-                sudo apt-get update -y
-                sudo apt-get install git-all -y
+                apt-get update -y
+                apt-get install git-all -y
                 git clone https://github.com/koliacv/website.git -b master
                 
                 '''
@@ -22,7 +22,7 @@ pipeline {
                   sh '''
                     cd .devops/
                     chmod +x test.sh
-                    sudo ./test.sh
+                    ./test.sh
                 '''
             }
         }
@@ -60,7 +60,7 @@ pipeline {
                         git clone https://github.com/koliacv/website.git -b master
                         cd .devops/
                         chmod +x push.sh
-                        sudo ./push.sh
+                        ./push.sh
                 
                     '''
                 }
