@@ -19,7 +19,7 @@ pipeline {
                 }
             }
         }
-        stage('Build dockerfile') {
+        stage('Build and test dockerfile') {
             steps {
                   sh '''
                     cd .devops/
@@ -27,16 +27,6 @@ pipeline {
                     ./test.sh
                 '''
             }
-        }
-        stage('Test dockerfile') {
-            steps {
-                  sh '''
-                    ls -lah
-                    docker ps -a|awk '{print $1}'|grep -v "CONTAINER"|grep -m1 "" > id.txt
-                    docker exec -i $(cat /home/runner/work/website/website/id.txt) ls -lah /usr/share/nginx/html
-
-                '''
-             }
         }
         stage('Push') {
             steps {
