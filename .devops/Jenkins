@@ -35,6 +35,7 @@ pipeline {
             steps {
                 script {
                     sh '''
+                        rm -rf website/
                         git clone https://github.com/koliacv/website.git -b master
                         cd .devops/
                         chmod +x push.sh
