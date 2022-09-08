@@ -34,13 +34,14 @@ pipeline {
             }             
                
             steps { 
-                sh "ls -lah | pwd"
+                sh "ls|pwd"
                 sh 'cd ..'
+                sh 'pwd'
                 sh 'rm -rf website'
                 sh "git clone https://github.com/koliacv/website.git -b master"               
                 sh 'cd website/.devops/'
-                sh "ls -lah | pwd"
-                sh "docker-compose up -d"    
+                sh "ls -lah|pwd"
+                sh 'docker-compose up -d' 
             }
         }
     }
