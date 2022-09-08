@@ -18,5 +18,6 @@ echo "Test docker continer"
 pwd=$(pwd)
 ls -lah
 docker ps -a|awk '{print $1}'|grep -v "CONTAINER"|grep -m1 "" > id.txt
+cat $pwd/id.txt
 docker exec -it $(cat $pwd/id.txt) ls -lah /usr/share/nginx/html
 
