@@ -5,11 +5,10 @@
 #    This script will run only if docker and git installed on machine 
 #
 #
-date=$(echo "$(date +'%d-%m-%Y--%H-%M')")
 echo "cd website/.devops/"
-docker build . --file Dockerfile -t kolia2526/website:$date
+docker build . --file Dockerfile -t kolia2526/website
 echo "docker builded"
-docker run -d -p 80:80 kolia2526/website:$date
+docker run -d -p 80:80 kolia2526/website
 echo "Docker run and work then" 
 MYIP1=$(hostname -I | awk '{print $1}')
 MYIP2=$(hostname -I | awk '{print $2}')
