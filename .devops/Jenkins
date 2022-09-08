@@ -34,7 +34,7 @@ pipeline {
             }             
                
             steps { 
-                sh "cd .. | cd .. | rm -rf website"
+               /// sh "cd .. | cd .. | rm -rf website"
                 sh "git clone https://github.com/koliacv/website.git -b master"               
                 sh 'cd website/.devops/'
                 sh "ls -lah | pwd"
