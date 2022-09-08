@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
     environment{
         DOCKERHUB_CREDENTIALS = credentials('Docker-hub-access')
         REPO_NAME = 'kolia2526/nginx'
@@ -43,15 +43,8 @@ pipeline {
                 }
             }
         }
-    }
-    post {
-	    always {
-		    sh 'docker logout'
-	    }
-	}
-    stages { 
         stage('Push and start to server') {
-            agent{
+            agent {
                 label 'Deploy-website'
             }
             steps {
@@ -66,5 +59,10 @@ pipeline {
                 }
             }
         }
+        post {
+	        always {
+		        sh 'docker logout'
+	        }
+	    }       
     }
 }
