@@ -4,7 +4,7 @@ pipeline {
         REPO_NAME = 'kolia2526/nginx'
     }
     agent any
-    stages1 {
+    stages {
         stage('Git pull from repo') {
             steps {
                 git branch: 'master',
@@ -29,7 +29,7 @@ pipeline {
             }
         }
     }
-    stages2 {
+    stages {
         stage('Pull and start on server') {
             agent {
                 label 'website'
@@ -37,10 +37,9 @@ pipeline {
             steps {
                 script {
                     sh '''
-                      wget https://raw.githubusercontent.com/koliacv/website/master/.devops/docker-compose.yml
-                      pwd
-                      ls -lah
-                      docker-compose up -d
+                      cd .devops/
+                      chmod +x push.sh
+                      ./push.sh
                     '''
                 }
             }
