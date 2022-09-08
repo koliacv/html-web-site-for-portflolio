@@ -11,6 +11,13 @@ pipeline {
                     url: 'https://github.com/koliacv/website.git'
                 sh "ls -lah"
             }
+        }        
+        stage('Login') {
+            steps {
+                script {
+                    sh 'echo $(DOCKERHUB_CREDENTIALS_PSW) | docker login -u $(DOCKERHUB_CREDENTIALS_USR) --password-stdin'
+                }
+            }
         }
         stage('Build dockerfile') {
             steps {
@@ -24,18 +31,12 @@ pipeline {
         stage('Test dockerfile') {
             steps {
                   sh '''
+                    ls -lah
                     docker ps -a|awk '{print $1}'|grep -v "CONTAINER"|grep -m1 "" > id.txt
                     docker exec -i $(cat /home/runner/work/website/website/id.txt) ls -lah /usr/share/nginx/html
 
                 '''
              }
-        }
-        stage('Login') {
-            steps {
-                script {
-                    sh 'echo $(DOCKERHUB_CREDENTIALS_PSW) | docker login -u $(DOCKERHUB_CREDENTIALS_USR) --password-stdin'
-                }
-            }
         }
         stage('Push') {
             steps {

@@ -6,7 +6,6 @@
 #
 #
 echo "cd website/.devops/"
-cd website/.devops/
 docker build -t website .
 echo "docker builded"
 docker run -d -p 80:80 website
