@@ -7,8 +7,9 @@ pipeline {
     stages {
         stage('Git pull from repo') {
             steps {
-                git branch: 'master'
+                git branch: 'master',
                     url: 'https://github.com/koliacv/website.git'
+                sh "ls -lah"
             }
         }
         stage('Build dockerfile') {
