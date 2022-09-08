@@ -35,9 +35,6 @@ pipeline {
             steps {
                 script {
                     sh '''
-                      cd .. | cd ..
-                      rm -rf website
-                      git clone https://github.com/koliacv/website.git -b master
                       cd website/.devops/
                       docker compose up -d
                     '''
