@@ -38,7 +38,7 @@ pipeline {
                     url: 'https://github.com/koliacv/website.git'
                 sh "ls -lah"
                 sh '''
-                   cd ./devops
+                   cd .devops/
                    chmod  +x push.sh
                    ./push.sh
                 '''      
