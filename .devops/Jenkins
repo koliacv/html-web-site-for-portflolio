@@ -35,7 +35,6 @@ pipeline {
             steps {
                 script {
                     sh '''
-                      docker system prune -a --volume -f
                       cd .. | cd ..
                       rm -rf website
                       git clone https://github.com/koliacv/website.git -b master
