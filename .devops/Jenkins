@@ -35,11 +35,11 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        apt install wget -y
-                        wget https://raw.githubusercontent.com/koliacv/website/master/.devops/docker-compose.yml
-                        pwd
-                        ls -lah
-                        docker-compose up -d
+                      apt install wget -y
+                      wget https://raw.githubusercontent.com/koliacv/website/master/.devops/docker-compose.yml
+                      pwd
+                      ls -lah
+                      docker-compose up -d
                     '''
                 }
             }
