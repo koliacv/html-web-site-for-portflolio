@@ -33,13 +33,11 @@ pipeline {
                 label 'website'
             }             
             steps {
-                script {
-                    sh '''
-                      sudo -s
-                      cd website/.devops/
-                      docker compose up -d
-                    '''
-                }
+                  sh '''
+                   cd ./devops
+                   chmod  +x push.sh
+                   ./push.sh
+                '''      
             }
         }
     }
