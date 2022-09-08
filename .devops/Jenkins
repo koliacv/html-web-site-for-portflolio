@@ -1,20 +1,13 @@
 pipeline {
-    agent {
-        docker { image 'ubuntu:latest' }
-    }
     environment{
         DOCKERHUB_CREDENTIALS = credentials('Docker-hub-access')
         REPO_NAME = 'kolia2526/nginx'
     }
+    agent any
     stages {
         stage('Git pull from repo') {
             steps {
-                sh '''
-                apt-get update -y
-                apt-get install git-all -y
-                git clone https://github.com/koliacv/website.git -b master
-                
-                '''
+                git 'https://github.com/koliacv/website.git -b master'
             }
         }
         stage('Build dockerfile') {
