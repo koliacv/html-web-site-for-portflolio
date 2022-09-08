@@ -1,4 +1,5 @@
 FROM nginx:alpine
 USER root
-COPY website/. /usr/share/nginx/html
+RUN cd ..
+COPY . /usr/share/nginx/html
 
