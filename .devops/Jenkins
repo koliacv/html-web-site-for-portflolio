@@ -34,8 +34,8 @@ pipeline {
             }
             steps {
                 environment {
-                    MYIP1 = $(hostname -I | awk '{print $1}')
-                    MYIP2 = $(hostname -I | awk '{print $2}')
+                    MYIP1 = ${ hostname -I | awk '{print $1}' }
+                    MYIP2 = ${ hostname -I | awk '{print $2}' }
                 }
                 script {
                     sh '''
@@ -44,7 +44,7 @@ pipeline {
                         pwd
                         ls -lah
                         docker-compose up -d
-                        echo "----------------------------go to ${MYIP1}:80 or ${MYIP2}:80-------------------------------"
+                        echo "----------------------------go to $MYIP1:80 or $MYIP2:80-------------------------------"
                     '''
                 }
             }
