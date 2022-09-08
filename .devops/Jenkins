@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Git pull from repo') {
             steps {
-                git 'https://github.com/koliacv/website.git -b master'
+                git url: "https://github.com/koliacv/website.git -b master"
             }
         }
         stage('Build dockerfile') {
@@ -49,8 +49,11 @@ pipeline {
 		    sh 'docker logout'
 	    }
 	}
-    agent { label 'Deploy-website' } {
+    stages { 
         stage('Push and start to server') {
+            agent{
+                label 'Deploy-website'
+            }
             steps {
                 script {
                     sh """
@@ -63,6 +66,5 @@ pipeline {
                 }
             }
         }
-
     }
 }
