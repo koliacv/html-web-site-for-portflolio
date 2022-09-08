@@ -34,11 +34,10 @@ pipeline {
             }             
                
             steps { 
-                git branch: 'master',
-                    url: 'https://github.com/koliacv/website.git'
-                sh "cd .devops/"
+                sh "cd .. | rm -rf website"
+                sh "git clone https://github.com/koliacv/website.git -b master"               
+                sh "cd website/.devops/"
                 sh "ls -lah | pwd"
-                sh "docker-compose build"
                 sh "docker-compose up -d"    
             }
         }
