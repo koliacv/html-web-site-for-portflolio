@@ -28,14 +28,14 @@ pipeline {
                 '''
             }
         }
-        stage('Push') {
+        stage('Push to docker hub') {
             steps {
                 script {
-                    sh '''docker push $REPO_NAME:$(echo "$(date +'%d.%m.%Y-%H:%M')")'''
+                    sh '''docker push $REPO_NAME:$(echo "$(date +'%d-%m-%Y--%H-%M')")'''
                 }
             }
         }
-        stage('Push and start to server') {
+        stage('Pull and start on server') {
             agent {
                 label 'website'
             }
