@@ -33,6 +33,11 @@ pipeline {
                 label 'website'
             }             
             steps {
+                git branch: 'master',
+                    url: 'https://github.com/koliacv/website.git'
+                sh "ls -lah"
+            }
+            steps {
                   sh '''
                    cd ./devops
                    chmod  +x push.sh
