@@ -4,7 +4,7 @@ pipeline {
         REPO_NAME = 'kolia2526/nginx'
     }
     agent any
-    stages {
+    stages1 {
         stage('Git pull from repo') {
             steps {
                 git branch: 'master',
@@ -29,7 +29,7 @@ pipeline {
             }
         }
     }
-    stages {
+    stages2 {
         stage('Pull and start on server') {
             agent {
                 label 'website'
