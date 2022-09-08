@@ -1,5 +1,7 @@
 pipeline {
-    agent none
+    agent {
+        docker { image 'ubuntu:latest' }
+    }
     environment{
         DOCKERHUB_CREDENTIALS = credentials('Docker-hub-access')
         REPO_NAME = 'kolia2526/nginx'
