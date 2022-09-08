@@ -7,50 +7,48 @@ pipeline {
     stages {
         stage('Git pull from repo') {
             steps {
-                 sh ("git clone https://github.com/koliacv/website.git -b master")
+                git 'https://github.com/koliacv/website.git -b master'
             }
         }
-        stage('Build and Test dockerfile') {
+        stage('Build dockerfile') {
             steps {
-                script {
                   sh """ 
                     cd .devops/
                     chmod +x test.sh
                     sudo ./test.sh
                 """
-                }
             }
+        }
+        stage('Test dockerfile') {
             steps {
-                script {
                   sh '''
                     cd ..
                     docker ps -a|awk '{print $1}'|grep -v "CONTAINER"|grep -m1 "" > id.txt
                     docker exec -i $(cat /home/runner/work/website/website/id.txt) ls -lah /usr/share/nginx/html
 
                 '''
-                }
-            }
-
+             }
         }
         stage('Login') {
             steps {
                 script {
-                    sh ('echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin')
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 }
             }
         }
         stage('Push') {
             steps {
                 script {
-                    sh ''' docker push $REPO_NAME:$(echo "$(date +'%d.%m.%Y-%H:%M')") '''
+                    sh 'docker push $REPO_NAME:$(echo "$(date +'%d.%m.%Y-%H:%M')")'
                 }
             }
         }
-        post {
-		    always {
-			    sh ("docker logout")
-		    }
+    }
+    post {
+	    always {
+		    sh 'docker logout'
 	    }
+	}
     agent { label 'Deploy-website' } {
         stage('Push and start to server') {
             steps {
@@ -67,5 +65,4 @@ pipeline {
         }
 
     }
-}
 }
