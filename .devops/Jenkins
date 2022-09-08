@@ -28,8 +28,6 @@ pipeline {
                 '''
             }
         }
-    }
-    stages {
         stage('Pull and start on server') {
             agent {
                 label 'website'
