@@ -8,6 +8,8 @@
 echo "cd website/.devops/"
 docker build . --file Dockerfile -t kolia2526/website
 echo "docker builded"
+echo "--------------------------------DOCKER RUN-------------------------------"
+docker kill $(docker ps -q)
 docker run -d -p 80:80 kolia2526/website
 echo "Docker run and work then" 
 MYIP1=$(hostname -I | awk '{print $1}')
