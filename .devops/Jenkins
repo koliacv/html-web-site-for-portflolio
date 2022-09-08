@@ -32,10 +32,6 @@ pipeline {
             agent {
                 label 'website'
             }             
-            environment{
-                MYIP1 = 'sh "hostname -I | awk '{print $1}'"'
-                MYIP2 = 'sh "hostname -I | awk '{print $2}'"'
-            }
             steps {
                 script {
                     sh '''
@@ -44,7 +40,6 @@ pipeline {
                         pwd
                         ls -lah
                         docker-compose up -d
-                        echo "----------------------------go to $MYIP1:80 or $MYIP2:80-------------------------------"
                     '''
                 }
             }
