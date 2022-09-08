@@ -6,8 +6,7 @@
 #
 #
 
-echo "cd website/.devops/"
-cd website/.devops/
+echo "---------------------docker-compose run---------------------"
 docker-compose up -d
 echo "Docker run and work then"
 MYIP1=$(hostname -I | awk '{print $1}')
