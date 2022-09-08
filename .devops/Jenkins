@@ -9,16 +9,16 @@ pipeline {
     stages {
         stage('Git pull from repo') {
             steps {
-                git url: "https://github.com/koliacv/website.git -b master"
+                sh 'git clone https://github.com/koliacv/website.git -b master'
             }
         }
         stage('Build dockerfile') {
             steps {
-                  sh """ 
+                  sh '''
                     cd .devops/
                     chmod +x test.sh
                     sudo ./test.sh
-                """
+                '''
             }
         }
         stage('Test dockerfile') {
@@ -34,30 +34,30 @@ pipeline {
         stage('Login') {
             steps {
                 script {
-                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                    sh 'echo $(DOCKERHUB_CREDENTIALS_PSW) | docker login -u $(DOCKERHUB_CREDENTIALS_USR) --password-stdin'
                 }
             }
         }
         stage('Push') {
             steps {
                 script {
-                    sh '''docker push $REPO_NAME:$(echo "$(date +'%d.%m.%Y-%H:%M')")'''
+                    sh '''docker push $(REPO_NAME):$(echo "$(date +'%d.%m.%Y-%H:%M')")'''
                 }
             }
         }
         stage('Push and start to server') {
             agent {
-                label 'Deploy-website'
+                label 'website'
             }
             steps {
                 script {
-                    sh """
+                    sh '''
                         git clone https://github.com/koliacv/website.git -b master
                         cd .devops/
                         chmod +x push.sh
                         sudo ./push.sh
                 
-                    """
+                    '''
                 }
             }
         }
