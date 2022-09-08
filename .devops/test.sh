@@ -8,13 +8,14 @@
 #ENV
 REPO_NAME=kolia2526/website
 pwd=$(pwd)
+date=$(echo "$(date +'%d-%m-%Y--%H-%M')")
 ###
 echo "---------------------------------Start docker build------------------------------"
-docker build . --file Dockerfile -t $REPO_NAME
+docker build . --file Dockerfile -t $REPO_NAME:$date
 echo "docker builded--------------------------"
 echo "--------------------------------DOCKER RUN-------------------------------"
 docker kill $(docker ps -q)
-docker run -d -p 80:80 $REPO_NAME
+docker run -d -p 80:80 $REPO_NAME:$date
 echo "Docker run and work then" 
 MYIP1=$(hostname -I | awk '{print $1}')
 MYIP2=$(hostname -I | awk '{print $2}')
@@ -30,4 +31,4 @@ docker exec -i $(cat $pwd/id.txt) ls -lah /usr/share/nginx/html
 
 
 echo "---------------------------PUSH TO DOCKERHUB-----------------------------------"
-docker push $REPO_NAME:$(echo "$(date +'%d-%m-%Y--%H-%M')")
+docker push $REPO_NAME:$date
