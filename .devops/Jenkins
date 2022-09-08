@@ -38,7 +38,7 @@ pipeline {
                     url: 'https://github.com/koliacv/website.git'
                 sh "ls -lah"
                 sh "cd .devops/"
-                sh "docker-composer build"
+                sh "docker-compose build"
                 sh "docker-compose up -d"    
             }
         }
