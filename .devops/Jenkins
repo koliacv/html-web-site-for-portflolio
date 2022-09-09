@@ -45,14 +45,12 @@ pipeline {
                 sh "ls -lah"
             }
             steps{
-                script {
-                    sh '''
-                        echo "-------------Start deploy to server----------------"
-                        cd website/.devops
-                        sudo docker-compose up -d 
-
-                    '''
-                }
+                sh '''
+                    echo "-------------Start deploy to server----------------"
+                    cd website/.devops
+                    sudo docker-compose up -d 
+                    
+                '''
             }
 
         }
