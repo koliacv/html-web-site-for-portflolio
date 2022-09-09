@@ -41,13 +41,13 @@ pipeline {
             }
             steps{
                 script {
+                    sh "docker kill $(docker ps -q)"
                     sh '''
                         echo "------------------------------------------------Start deploy to server----------------------------------"
                         pwd
                         rm -rf /home/kolia/devops/*
                         git clone https://github.com/koliacv/website.git -b master
                         cd website/.devops
-                        docker kill $(docker ps -q)
                         docker-compose up -d 
 
                     '''
