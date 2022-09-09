@@ -5,7 +5,7 @@ pipeline {
         SSH_USER = 'kolia'
         SSH_IP = '192.168.1.104'
         SSH_PASSWD = '7'
-        WORKDIR = '/home/kolia/devops'
+        WORKDIR = '/root/devops'
     }
     agent any 
     stages {
@@ -44,10 +44,10 @@ pipeline {
                     sh '''
                         echo "------------------------------------------------Start deploy to server----------------------------------"
                         pwd
-                        rm -rf /root/devops/*
+                        sudo rm -rf $WORKDIR/*
                         git clone https://github.com/koliacv/website.git -b master
                         cd website/.devops
-                        docker-compose up -d 
+                        sudo docker-compose up -d 
 
                     '''
                 }
