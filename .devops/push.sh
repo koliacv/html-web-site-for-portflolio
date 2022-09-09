@@ -8,4 +8,7 @@
 echo "---------------Start deploy to server---------------"
 pwd
 docker kill $(docker ps -q)
+rm -r /home/kolia/devops*
+git clone https://github.com/koliacv/website.git -b master
+cd /home/kolia/devops/website/.devops
 docker-compose up -d 

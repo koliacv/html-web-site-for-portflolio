@@ -37,17 +37,10 @@ pipeline {
                 }
             }
             steps{
-                sh 'rm -r /home/kolia/devops*'
-            }
-            steps {
-                sh 'git clone https://github.com/koliacv/website.git -b master'
-            }
-            steps{
-                sh '''
-                    echo "-------------Start deploy to server----------------"
-                    cd website/.devops
-                    sudo docker-compose up -d 
-                    
+                echo "-------------Start deploy to server----------------"
+                sh ''' 
+                cd /home/kolia/
+                ./push.sh
                 '''
             }
 
