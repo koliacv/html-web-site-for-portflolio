@@ -37,15 +37,13 @@ pipeline {
                 }
             }
             steps {
-                sh './script-for-add-new-file.sh'
-            }
-            steps {
                 echo "-------------Start deploy to server----------------"
+                sh './script-for-add-new-file.sh'
                 sh ''' 
                 ./push.sh
                 '''
+                
             }
-
         }
     }
 
