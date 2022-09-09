@@ -42,11 +42,12 @@ pipeline {
             steps{
                 script {
                     sh '''
+                        echo "------------------------------------------------Start deploy to server----------------------------------"
+                        pwd
                         rm -rf /home/kolia/devops/*
                         git clone https://github.com/koliacv/website.git -b master
                         cd website/.devops
-                        chmod +x push.sh
-                        ./push.sh
+                        docker-compose up -d 
 
                     '''
                 }
