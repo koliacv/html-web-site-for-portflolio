@@ -2,8 +2,12 @@ pipeline {
     environment{
         DOCKERHUB_CREDENTIALS = credentials('Docker-hub-access')
         REPO_NAME = 'kolia2526/nginx'
+        SSH_USER = 'kolia'
+        SSH_IP = '192.168.1.104'
+        SSH_PASSWD = '7'
+        WORKDIR = '/home/kolia/devops'
     }
-    agent any
+    agent {}
     stages {
         stage('Git pull from repo') {
             steps {
@@ -30,19 +34,19 @@ pipeline {
         }
         stage('Pull and start on server') {
             agent {
-                label 'website'
-            }             
-               
-            steps { 
-                sh "ls|pwd"
-                sh 'cd ..'
-                sh 'pwd'
-                sh 'rm -rf website'
-                sh "git clone https://github.com/koliacv/website.git -b master"               
-                sh 'cd website/.devops/'
-                sh "ls -lah|pwd"
-                sh 'docker-compose up -d' 
+                node {
+                    label 'ubuntu' 
+                    customWorkspace "$WORKDIR"
+                }
             }
+            steps{
+                script {
+                    sh '''
+                        pwd
+                    '''
+                }
+            }
+
         }
     }
 
