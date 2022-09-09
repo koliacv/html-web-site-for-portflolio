@@ -40,9 +40,7 @@ pipeline {
                 sh 'rm -r /home/kolia/devops*'
             }
             steps {
-                git branch: 'master',
-                    url: 'https://github.com/koliacv/website.git'
-                sh "ls -lah"
+                sh 'git clone https://github.com/koliacv/website.git -b master'
             }
             steps{
                 sh '''
