@@ -48,13 +48,19 @@ pipeline {
                 sh './script-for-add-new-file.sh'
                 sh ''' 
                 ./push.sh
-                '''
-
-    stage('Remote SSH') {
-      writeFile file: 'abc.sh', text: 'ls -lrt'
-      sshScript remote: remote, script: "abc.sh"
-    }            
+               '''
             }
+        stage('Remote SSH') {
+            def remote = [:]
+            remote.name = 'kolia'
+            remote.host = '192.168.1.101'
+            remote.user = 'kolia'
+            remote.password = '7'
+            remote.allowAnyHosts = true
+            writeFile file: 'push.sh', text: 'ls -lrt'
+            sshScript remote: remote, script: "./push.sh"
+        }            
+           
         }
     }
 
