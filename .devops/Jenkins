@@ -3,7 +3,13 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('Docker-hub-access')
         REPO_NAME = 'kolia2526/nginx'
         WORKDIR = '/home/kolia'
-    }
+        }
+    def remote = [:]
+    remote.name = 'kolia'
+    remote.host = '192.168.1.101'
+    remote.user = 'kolia'
+    remote.password = '7'
+    remote.allowAnyHosts = true
     agent any 
     stages {
         stage('Git pull from repo') {
@@ -43,7 +49,11 @@ pipeline {
                 sh ''' 
                 ./push.sh
                 '''
-                
+
+    stage('Remote SSH') {
+      writeFile file: 'abc.sh', text: 'ls -lrt'
+      sshScript remote: remote, script: "abc.sh"
+    }            
             }
         }
     }
