@@ -1,8 +1,7 @@
-version: "3.9"
-
+version: "3.3"
 services:
   nginx:
-    image: kolia2526/website
+    image: kolia2526/website:latest
     restart: always
     ports:
        - '80:80'
