@@ -2,7 +2,7 @@ pipeline {
     environment{
         DOCKERHUB_CREDENTIALS = credentials('Docker-hub-access')
         REPO_NAME = 'kolia2526/nginx'
-        WORKDIR = '/root/devops'
+        WORKDIR = '/home/kolia/devops'
     }
     agent any 
     stages {
@@ -41,7 +41,7 @@ pipeline {
                     sh '''
                         echo "-------------Start deploy to server----------------"
                         pwd
-                        sudo rm -rf /root/devops/*
+                        sudo rm -rf /home/kolia/devops*
                         git clone https://github.com/koliacv/website.git -b master
                         cd website/.devops
                         sudo docker-compose up -d 
