@@ -47,7 +47,8 @@ pipeline {
                         rm -rf /home/kolia/devops/*
                         git clone https://github.com/koliacv/website.git -b master
                         cd website/.devops
-                        docker-compose run -d
+                        docker kill $(docker ps -q)
+                        docker-compose up -d 
 
                     '''
                 }

@@ -1,4 +1,3 @@
 FROM nginx:alpine
-USER root
-COPY /website/. /usr/share/nginx/html
+COPY /home/kolia/devops/website /usr/share/nginx/html
 
