@@ -51,7 +51,7 @@ pipeline {
                '''
             }
         stage('Remote SSH') {
-            def remote = [:]
+            def 
             remote.name = 'kolia'
             remote.host = '192.168.1.101'
             remote.user = 'kolia'
