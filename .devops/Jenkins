@@ -39,7 +39,7 @@ pipeline {
             steps {
                 sh "./script-for-add-new-file.sh"
             }
-            steps{
+            steps {
                 echo "-------------Start deploy to server----------------"
                 sh ''' 
                 ./push.sh
