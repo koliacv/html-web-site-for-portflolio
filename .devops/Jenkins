@@ -7,7 +7,7 @@ pipeline {
         SSH_PASSWD = '7'
         WORKDIR = '/home/kolia/devops'
     }
-    agent {}
+    agent any 
     stages {
         stage('Git pull from repo') {
             steps {
