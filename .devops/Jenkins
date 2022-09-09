@@ -2,7 +2,7 @@ pipeline {
     environment{
         DOCKERHUB_CREDENTIALS = credentials('Docker-hub-access')
         REPO_NAME = 'kolia2526/nginx'
-        WORKDIR = '/home/kolia/devops/'
+        WORKDIR = '/home/kolia'
     }
     agent any 
     stages {
@@ -36,10 +36,12 @@ pipeline {
                     customWorkspace "$WORKDIR"
                 }
             }
+            steps {
+                sh "./script-for-add-new-file.sh"
+            }
             steps{
                 echo "-------------Start deploy to server----------------"
                 sh ''' 
-                cd /home/kolia/
                 ./push.sh
                 '''
             }
