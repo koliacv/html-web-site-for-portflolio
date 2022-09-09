@@ -37,12 +37,17 @@ pipeline {
                 }
             }
             steps{
+                sh 'rm -r /home/kolia/devops*'
+            }
+            steps {
+                git branch: 'master',
+                    url: 'https://github.com/koliacv/website.git'
+                sh "ls -lah"
+            }
+            steps{
                 script {
                     sh '''
                         echo "-------------Start deploy to server----------------"
-                        pwd
-                        rm -rf /home/kolia/devops*
-                        git clone https://github.com/koliacv/website.git -b master
                         cd website/.devops
                         sudo docker-compose up -d 
 
