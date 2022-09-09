@@ -44,7 +44,7 @@ pipeline {
                     sh '''
                         echo "------------------------------------------------Start deploy to server----------------------------------"
                         pwd
-                        sudo rm -rf $WORKDIR/*
+                        sudo rm -rf /root/devops/*
                         git clone https://github.com/koliacv/website.git -b master
                         cd website/.devops
                         sudo docker-compose up -d 
