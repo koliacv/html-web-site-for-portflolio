@@ -4,12 +4,6 @@ pipeline {
         REPO_NAME = 'kolia2526/nginx'
         WORKDIR = '/home/kolia'
         }
-    def remote = [:]
-    remote.name = 'kolia'
-    remote.host = '192.168.1.101'
-    remote.user = 'kolia'
-    remote.password = '7'
-    remote.allowAnyHosts = true
     agent any 
     stages {
         stage('Git pull from repo') {
@@ -40,27 +34,19 @@ pipeline {
                 node {
                     label 'ubuntu' 
                     customWorkspace "$WORKDIR"
-                    args '-u root'
                 }
             }
             steps {
                 echo "-------------Start deploy to server----------------"
                 sh './script-for-add-new-file.sh'
-                sh ''' 
-                ./push.sh
-               '''
-            }
-        stage('Remote SSH') {
-            def 
-            remote.name = 'kolia'
-            remote.host = '192.168.1.101'
-            remote.user = 'kolia'
-            remote.password = '7'
-            remote.allowAnyHosts = true
-            writeFile file: 'push.sh', text: 'ls -lrt'
-            sshScript remote: remote, script: "./push.sh"
-        }            
-           
+                sh '''pwd
+                docker kill $(docker ps -q)
+                rm -rf /home/kolia/devops/*
+                cd /home/kolia/devops
+                git clone https://github.com/koliacv/website.git -b master
+                cd /home/kolia/devops/website/.devops
+                docker-compose up -d '''
+            }        
         }
     }
 
