@@ -4,12 +4,7 @@ pipeline {
         REPO_NAME = 'kolia2526/nginx'
         WORKDIR = '/home/kolia'
         }
-    agent {
-        docker { 
-            image 'ubuntu:latest'
-            label 'my-docker-label'
-        }
-    }
+    agent { docker { image 'ubuntu:latest' } }
     stages {
         stage('Git pull from repo') {
             steps {
