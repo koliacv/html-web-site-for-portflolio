@@ -25,6 +25,7 @@ pipeline {
         stage('Build and test dockerfile') {
             steps {
                   sh '''
+                    cd we
                     chmod +x .devops/test.sh
                     ./.devops/test.sh
                 '''
@@ -43,6 +44,7 @@ pipeline {
                 rm -rf website/
                 docker kill $(docker ps -q)
                 git clone https://github.com/koliacv/website.git -b master
+                cd website/
                 echo "------------Server directory------------"
                 ls
                 cd $WORKDIR/website/.devops
