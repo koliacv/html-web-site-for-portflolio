@@ -11,6 +11,7 @@ pwd=$(pwd)
 date=latest
 ###
 echo "---------------------------------Start docker build------------------------------"
+docker stop $(docker ps -q)
 docker kill $(docker ps -q)
 docker rm $(docker ps -a -f status=exited -q)
 docker build . --file Dockerfile -t $REPO_NAME:$date
@@ -24,14 +25,12 @@ MYIP2=$(hostname -I | awk '{print $2}')
 echo "--------------------go to ${MYIP1}:80 or ${MYIP2}:80---------------------------"
 
 echo "---------------------------Test docker continer--------------------------------"
-
-ls -lah
 echo "--------workdir------"
+ls -lah
 docker ps -a|awk '{print $1}'|grep -v "CONTAINER"|grep -m1 "" > id.txt
 cat $pwd/id.txt
 
 echo "---------docker continer-------"
-
 docker exec -i $(cat $pwd/id.txt) ls /usr/share/nginx/html
 
 

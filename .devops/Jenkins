@@ -46,6 +46,7 @@ pipeline {
                 echo "------------Server directory------------"
                 ls
                 cd $WORKDIR/website/.devops
+                docker-compose stop
                 docker-compose up -d '''
             }        
         }
