@@ -25,9 +25,8 @@ pipeline {
         stage('Build and test dockerfile') {
             steps {
                   sh '''
-                    cd .devops/
-                    chmod +x test.sh
-                    ./test.sh
+                    chmod +x .devops/test.sh
+                    ./.devops/test.sh
                 '''
             }
         }
