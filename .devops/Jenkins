@@ -2,7 +2,7 @@ pipeline {
     environment{
         DOCKERHUB_CREDENTIALS = credentials('Docker-hub-access')
         REPO_NAME = 'kolia2526/nginx'
-        WORKDIR = '/home/kolia'
+        WORKDIR = '/root/devops'
         }
 //    agent { docker { image 'ubuntu:latest' } }
     agent any
@@ -42,11 +42,8 @@ pipeline {
                 echo "-------------Start deploy to server----------------"
                 sh './script-for-add-new-file.sh'
                 sh '''pwd
-                docker kill $(docker ps -q)
-                rm -rf /home/kolia/devops/*
-                cd /home/kolia/devops
                 git clone https://github.com/koliacv/website.git -b master
-                cd /home/kolia/devops/website/.devops
+                cd $WORKDIR/website/.devops
                 docker-compose up -d '''
             }        
         }
