@@ -14,7 +14,7 @@ pipeline {
                     url: 'https://github.com/koliacv/website.git'
                 sh "ls -lah"
             }
-        }        z
+        } 
         stage('Login') {
             steps {
                 script {
