@@ -4,7 +4,9 @@ pipeline {
         REPO_NAME = 'kolia2526/nginx'
         WORKDIR = '/home/kolia'
         }
-    agent { docker { image 'ubuntu:latest' } }
+//    agent { docker { image 'ubuntu:latest' } }
+    agent any
+  
     stages {
         stage('Git pull from repo') {
             steps {
@@ -12,7 +14,7 @@ pipeline {
                     url: 'https://github.com/koliacv/website.git'
                 sh "ls -lah"
             }
-        }        
+        }        z
         stage('Login') {
             steps {
                 script {
