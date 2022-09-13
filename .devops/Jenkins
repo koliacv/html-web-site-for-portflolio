@@ -41,6 +41,8 @@ pipeline {
             steps {
                 echo "-------------Start deploy to server----------------"
                 sh '''pwd
+                rm -rf website/
+                docker kill $(docker ps -q)
                 git clone https://github.com/koliacv/website.git -b master
                 cd $WORKDIR/website/.devops
                 docker-compose up -d '''
