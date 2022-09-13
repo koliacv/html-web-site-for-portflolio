@@ -40,7 +40,6 @@ pipeline {
             }
             steps {
                 echo "-------------Start deploy to server----------------"
-                sh './script-for-add-new-file.sh'
                 sh '''pwd
                 git clone https://github.com/koliacv/website.git -b master
                 cd $WORKDIR/website/.devops
