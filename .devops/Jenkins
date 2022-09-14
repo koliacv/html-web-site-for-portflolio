@@ -41,7 +41,6 @@ pipeline {
                 echo "-------------Start deploy to server----------------"
                 sh '''pwd
                 rm -rf website/
-                docker rm $(docker ps -a -f status=exited -q)
                 git clone https://github.com/koliacv/website.git -b master
                 cd website/
                 echo "------------Server directory------------"
