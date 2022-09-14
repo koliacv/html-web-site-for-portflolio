@@ -11,7 +11,6 @@ pwd=$(pwd)
 date=latest
 ###
 echo "---------------------------------Start docker build------------------------------"
-docker rm $(docker ps -a -f status=exited -q)
 docker build . --file Dockerfile -t $REPO_NAME:$date
 echo "docker builded--------------------------"
 echo "--------------------------------DOCKER RUN-------------------------------"
