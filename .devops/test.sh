@@ -16,7 +16,7 @@ docker rm $(docker ps -a -f status=exited -q)
 docker build . --file Dockerfile -t $REPO_NAME:$date
 echo "docker builded--------------------------"
 echo "--------------------------------DOCKER RUN-------------------------------"
-docker kill $(docker ps -q)
+docker stop $(docker ps -q)
 docker run -d -p 80:80 $REPO_NAME:$date
 echo "Docker run and work then" 
 MYIP1=$(hostname -I | awk '{print $1}')
