@@ -32,16 +32,9 @@ pipeline {
             }
         }
         stage('Pull and start on server') {
- //           agent {
- //               node {
- //                   label 'ubuntu' 
- //                   customWorkspace "$WORKDIR"
- //               }
- //           }
             steps {      
                 sh 'echo "-------------Start deploy to server----------------"'
                 sshagent(credentials : ['root-pass-for-deploy']) {
-                    customWorkspace "$WORKDIR"
                     script {
                         sh '''
                             ssh -o StrictHostKeyChecking=no $USER@$IP cd $WORKDIR && docker-compose down || true
