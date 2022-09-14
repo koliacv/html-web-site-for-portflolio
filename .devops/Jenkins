@@ -40,7 +40,7 @@ pipeline {
  //           }
             steps {      
                 sh 'echo "-------------Start deploy to server----------------"'
-                node {
+                step{
                     customWorkspace "$WORKDIR"
                     sshagent(credentials : ['root-pass-for-deploy']) {
                         script {
