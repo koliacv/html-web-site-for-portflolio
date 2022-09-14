@@ -48,6 +48,7 @@ pipeline {
                 docker-compose stop
                 docker-compose rm -f
                 docker-compose up -d '''
+                sh 'docker-compose up -d'
             }        
         }
     }
