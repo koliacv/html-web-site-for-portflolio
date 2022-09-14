@@ -2,6 +2,8 @@ pipeline {
     environment{
         DOCKERHUB_CREDENTIALS = credentials('Docker-hub-access')
         WORKDIR = '/root/devops'
+        IP = '192.168.1.101'
+        USER = 'root'
         }
 //    agent { docker { image 'ubuntu:latest' } }
     agent any
@@ -30,28 +32,22 @@ pipeline {
             }
         }
         stage('Pull and start on server') {
-            agent {
-                node {
-                    label 'ubuntu' 
-                    customWorkspace "$WORKDIR"
-                }
-            }
-            steps {
-                echo "-------------Start deploy to server----------------"
-                sh '''pwd
-                rm -rf website/
-                git clone https://github.com/koliacv/website.git -b master
-                cd website/
-                echo "------------Server directory------------"
-                ls
-                cd $WORKDIR/website/.devops
-                docker-compose stop
-                docker-compose rm -f
-                docker-compose up -d '''
-                sh 'docker-compose up -d'
+ //           agent {
+ //               node {
+ //                   label 'ubuntu' 
+ //                   customWorkspace "$WORKDIR"
+ //               }
+ //           }
+            steps {      
+                sh 'echo "-------------Start deploy to server----------------"'
+                sshagent(credentials : ['root-pass-for-deploy']) {
+                    sh 'ssh -o StrictHostKeyChecking=no $USER@$IP 'cd $WORKDIR/website/.devops && docker-compose down || true''
+                    sh 'ssh -o StrictHostKeyChecking=no $USER@$IP 'cd $WORKDIR/website/.devops && docker-compose up -d''  
+                }    
+         
+
             }        
         }
-    }
 
     post {
 	    always {
