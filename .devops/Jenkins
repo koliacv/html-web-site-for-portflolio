@@ -40,17 +40,14 @@ pipeline {
  //           }
             steps {      
                 sh 'echo "-------------Start deploy to server----------------"'
-                step{
-                    customWorkspace "$WORKDIR"
-                    sshagent(credentials : ['root-pass-for-deploy']) {
-                        script {
-                            sh '''
-                                ssh -o StrictHostKeyChecking=no $USER@$IP cd $WORKDIR && docker-compose down || true
-                                ssh -o StrictHostKeyChecking=no $USER@$IP cd $WORKDIR && docker-compose up -d
-                            '''
-                        }
+                sshagent(credentials : ['root-pass-for-deploy']) {
+                    script {
+                        sh '''
+                            ssh -o StrictHostKeyChecking=no $USER@$IP cd $WORKDIR && docker-compose down || true
+                            ssh -o StrictHostKeyChecking=no $USER@$IP cd $WORKDIR && docker-compose up -d
+                        '''
                     }
-                }               
+                }            
             }        
         }
     }
