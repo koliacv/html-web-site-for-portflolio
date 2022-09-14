@@ -33,9 +33,10 @@ pipeline {
         }
         stage('Pull and start on server') {         
             agent {
-               node {
+                node {
                   label '' 
                     customWorkspace "$WORKDIR"
+                }
             }
             steps { 
                 sh 'echo "-------------Start deploy to server----------------"'
@@ -50,7 +51,6 @@ pipeline {
             }        
         }
     }
-
     post {
 	    always {
 		    sh 'docker logout'
