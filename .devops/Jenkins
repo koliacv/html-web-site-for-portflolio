@@ -35,7 +35,7 @@ pipeline {
             agent {
                 node {
                   label '' 
-                    customWorkspace "$WORKDIR"
+                    customWorkspace "/root/devops"
                 }
             }
             steps { 
