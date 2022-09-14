@@ -33,6 +33,7 @@ pipeline {
         }
         stage('Pull and start on server') {
             steps {      
+                ws ("$WORKDIR")
                 sh 'echo "-------------Start deploy to server----------------"'
                 sshagent(credentials : ['root-pass-for-deploy']) {
                     script {
