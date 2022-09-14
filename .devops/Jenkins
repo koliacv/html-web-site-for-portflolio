@@ -48,7 +48,8 @@ pipeline {
                 ls
                 cd $WORKDIR/website/.devops
                 docker-compose stop
-                docker-compose up -d '''
+                docker-compose rm -f
+                docker-compose up '''
             }        
         }
     }
