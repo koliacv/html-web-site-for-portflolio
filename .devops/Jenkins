@@ -32,10 +32,6 @@ pipeline {
             }
         }
         stage('Pull and start on server') {         
-                node {
-                  label '' 
-                    customWorkspace "/root/devops"
-                }
             steps { 
                 sh 'echo "-------------Start deploy to server----------------"'
                 sshagent(credentials : ['root-pass-for-deploy']) {
