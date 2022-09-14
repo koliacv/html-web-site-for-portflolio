@@ -46,9 +46,7 @@ pipeline {
                         ssh -o StrictHostKeyChecking=no $USER@$IP 'cd $WORKDIR && docker-compose up -d'
                     '''
                 
-                }    
-         
-
+                }            
             }        
         }
 
@@ -57,4 +55,5 @@ pipeline {
 		    sh 'docker logout'
 	    }
 	}
+    }
 }
