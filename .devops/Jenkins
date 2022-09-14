@@ -43,6 +43,7 @@ pipeline {
                 sshagent(credentials : ['root-pass-for-deploy']) {
                     script {
                         sh '''
+                            pwd
                             ssh -o StrictHostKeyChecking=no $USER@$IP cd $WORKDIR && docker-compose down || true
                             ssh -o StrictHostKeyChecking=no $USER@$IP cd $WORKDIR && docker-compose up -d
                         '''
