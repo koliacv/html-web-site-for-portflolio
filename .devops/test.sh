@@ -37,4 +37,4 @@ docker exec -i $(cat $pwd/id.txt) ls /usr/share/nginx/html
 
 echo "---------------------------PUSH TO DOCKERHUB-----------------------------------"
 
-#docker push $REPO_NAME:$date
+docker push $REPO_NAME:$date
